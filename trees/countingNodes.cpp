@@ -1,46 +1,51 @@
 #include<iostream>
 #include<queue>
 using namespace std;
-
 class node{
     public:
     int data;
-    node* lchild;
-    node* rchild;
+    node *lchild; node* rchild;
     node(int x){
         this->data = x;
-        this->lchild = NULL;
-        this->rchild = NULL;
+        this->lchild = this->rchild = 0;
     }
 }*root;
-
 void create(){
-    queue<node*> q;
+    node *p,*t; int x;
     cout<<"Enter data: ";
-    int x; node*p,*s,*t;
     cin>>x;
-    p = new node(x); root = p;
+    p = new node(x);
+    root = p;
+    queue<node*>q;
     q.push(p);
     while(!q.empty()){
-        s = q.front();
-        q.pop();
-        cout<<"Enter left child: ";
-        cin>>x;
+        p = q.front(); q.pop();
+        cout<<"Enter left child: "; cin>>x;
         if(x!=-1){
             t = new node(x);
-            s->lchild = t;
+            p->lchild = t;
             q.push(t);
         }
         cout<<"Enter right child: "; cin>>x;
         if(x!=-1){
             t = new node(x);
-            s->rchild = t;
+            p->rchild = t;
             q.push(t);
         }
     }
-
+}
+// Recursivily counting the nodes of trees
+int count(node *p){
+    int x,y;
+    if(p){
+        x = count(p->lchild);
+        y = count(p->rchild);
+        return x+y+1;
+    }
+    return 0;
 }
 int main(){
     create();
+    cout<<count(root);
     return 0;
 }

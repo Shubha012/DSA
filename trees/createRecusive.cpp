@@ -5,21 +5,27 @@ class node{
     int data;
     node* lchild;
     node* rchild;
-}*root=NULL;
-node* create(){
-    node *p = new node;
-    root = p;
-    int x;
+    node(int data){
+        this->data = data;
+        this->lchild = NULL;
+        this->rchild = NULL;
+    }
+};
+node* create(node* root){
     cout<<"Enter data: ";
-    cin>>x; p->data=x;
-    if(x==-1) {return NULL;}
-    cout<<"Enter left node "<<x<<" ";
-    root->lchild = create();
-    cout<<"Enter right node "<<x<<" ";
-    root->rchild=create();
+    int x;
+    cin>>x; 
+    root = new node(x);
+    if(x==-1) return NULL;
+    cout<<"Enter left of "<<x<<" ";
+    root->lchild = create(root->lchild);
+    cout<<"Enter right of "<<x<<" ";
+    root->rchild = create(root->rchild);
     return root;
 }
 int main(){
-    node* root = create();
+    node* root=NULL;
+    root=create(root);
+    cout<<root->data;
     return 0;
 }
